@@ -4,7 +4,7 @@ export LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE := y
 export NEXUS_PLATFORM            := 97278
 export BCHP_VER                  := B0
 export PLATFORM                  := 97278
-export ANDROID_PRODUCT_OUT       := fundy
+export LOCAL_PRODUCT_OUT         := fundy
 export LOCAL_DEVICE_FULL_TREBLE  := y
 
 # compile the rc's for the device.
