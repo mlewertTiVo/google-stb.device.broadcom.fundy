@@ -67,6 +67,8 @@ export HW_GPU_MMU_SUPPORT        := y
 export HW_DTU_SUPPORT            := y
 # using bolt-ba.
 export BOLT_IMG_TO_USE_OVERRIDE  := bolt-ba.bin
+# vulan support.
+export HW_GPU_VULKAN_SUPPORT     := y
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=1024m@1024m mem=1024m@3072m
