@@ -78,7 +78,7 @@ LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
 export LOCAL_DEVICE_RTS_MODE       := 2
-export LOCAL_DEVICE_BGRCPKT_PLANES := 3
+export LOCAL_DEVICE_BGRCPKT_PLANES := 2
 
 ## no bt on device
 #
