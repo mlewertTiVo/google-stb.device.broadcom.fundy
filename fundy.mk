@@ -73,7 +73,7 @@ export HW_GPU_VULKAN_SUPPORT     := y
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=1024m@1024m mem=1024m@3072m
 LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=240m@1808m bmem=70m@4026m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=528m@1280m brcm_cma=64m@3962m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=528m@1280m brcm_cma=256m@3770m
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
