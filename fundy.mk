@@ -48,8 +48,9 @@ LOCAL_DEVICE_SEPOLICY_BLOCK      += device/broadcom/fundy/sepolicy/treble
 endif
 export LOCAL_DEVICE_SEPOLICY_BLOCK
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
-export LOCAL_DEVICE_USERDATA     := 5368709120  # 5.0009GB.
-export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.conf
+export LOCAL_DEVICE_USERDATA     := 4294967296  # 4GB.
+export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.o.conf
+export LOCAL_DEVICE_GPT_O_LAYOUT := y
 export HW_ENCODER_SUPPORT        := n
 export HW_WIFI_NIC_SUPPORT       := y
 export BT_RFKILL_SUPPORT         := y
@@ -96,6 +97,7 @@ export ANDROID_SUPPORTS_WIDEVINE := n
 export ANDROID_ENABLE_HDMI_HDCP  := n
 export ANDROID_SUPPORTS_PLAYREADY := n
 export NEXUS_SECURITY_SUPPORT     := n
+export SAGE_SUPPORT               := n
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
