@@ -93,10 +93,12 @@ export HW_WIFI_SUPPORT           := n
 #
 ## no sage support (so no drm, no hdcp).
 #
-export ANDROID_SUPPORTS_WIDEVINE := n
-export ANDROID_ENABLE_HDMI_HDCP  := n
+export ANDROID_SUPPORTS_WIDEVINE  := n
+export ANDROID_ENABLE_HDMI_HDCP   := n
 export ANDROID_SUPPORTS_PLAYREADY := n
 export NEXUS_SECURITY_SUPPORT     := n
+export ANDROID_SUPPORTS_RPMB      := n
+export ANDROID_SUPPORTS_KEYMASTER := n
 export SAGE_SUPPORT               := n
 
 # baseline the common support.
