@@ -8,11 +8,10 @@ export LOCAL_PRODUCT_OUT         := fundy
 export LOCAL_DEVICE_FULL_TREBLE  := y
 
 # compile the rc's for the device.
+LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.fundy.rc
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.ft.rc:root/init.fundy.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.mmu.nx.rc:root/init.nx.rc
 else
-LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.fundy.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.mmu.nx.rc:root/init.nx.rc
 endif
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.fundy.rc
