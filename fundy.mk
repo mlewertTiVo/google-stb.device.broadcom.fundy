@@ -6,14 +6,11 @@ export BCHP_VER                  := B0
 export PLATFORM                  := 97278
 export LOCAL_PRODUCT_OUT         := fundy
 export LOCAL_DEVICE_FULL_TREBLE  := y
+export ANDROID_DEVICE_SUPPORTS_BP3 := y
 
 # compile the rc's for the device.
 LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.fundy.rc
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.mmu.nx.rc:root/init.nx.rc
-else
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.mmu.nx.rc:root/init.nx.rc
-endif
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.fundy.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.verity.rc:root/init.fs.rc  # verity
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.eth.gphy.rc:root/init.eth.rc   # uses 'gphy'
@@ -26,8 +23,8 @@ LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/fundy/rcs/init.block.rc:root
 LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/fundy/rcs/init.recovery.usb.rc:root/init.recovery.usb.rc   # uses 'configfs'
 export LOCAL_DEVICE_RECOVERY_RCS
 
-LOCAL_DEVICE_FSTAB               := device/broadcom/fundy/fstab/fstab.verity.ab-update.early:root/fstab.bcm
-LOCAL_DEVICE_FSTAB               += device/broadcom/fundy/fstab/fstab.verity.ab-update.early:root/fstab.fundy
+LOCAL_DEVICE_FSTAB               := device/broadcom/fundy/fstab/fstab.verity.ab-update.early.bp3:root/fstab.bcm
+LOCAL_DEVICE_FSTAB               += device/broadcom/fundy/fstab/fstab.verity.ab-update.early.bp3:root/fstab.fundy
 export LOCAL_DEVICE_FSTAB
 
 LOCAL_DEVICE_RECOVERY_FSTAB      := device/broadcom/common/recovery/fstab.ab-update/recovery.fstab
@@ -65,8 +62,9 @@ export HW_HVD_REVISION           := T
 export HW_GPU_MMU_SUPPORT        := y
 # dtu enabled.
 export HW_DTU_SUPPORT            := y
-# using bolt-ba.
-export BOLT_IMG_TO_USE_OVERRIDE  := bolt-ba.bin
+# using bolt-b0 (7278B0) *and* bolt-b1 (7278B1).
+export BOLT_IMG_TO_USE_OVERRIDE     := bolt-b1.bin
+export BOLT_IMG_TO_USE_OVERRIDE_2ND := bolt-b0.bin
 # vulan support.
 export HW_GPU_VULKAN_SUPPORT     := y
 
