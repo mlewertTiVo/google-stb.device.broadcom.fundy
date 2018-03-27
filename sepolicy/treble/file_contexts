@@ -1,0 +1,4 @@
+/vendor/lib/hw/gralloc\.fundy\.so                       u:object_r:same_process_hal_file:s0
+
+/vendor/lib/hw/vulkan\.fundy\.so                        u:object_r:same_process_hal_file:s0
+/vendor/lib/libbcmvulkan_icd\.so                        u:object_r:same_process_hal_file:s0
