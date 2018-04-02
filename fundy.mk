@@ -10,13 +10,13 @@ export LOCAL_DEVICE_FULL_TREBLE  := y
 export ANDROID_DEVICE_SUPPORTS_BP3 := y
 
 # compile the rc's for the device.
-LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.fundy.rc
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.mmu.nx.rc:root/init.nx.rc
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.fundy.rc
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.verity.rc:root/init.fs.rc  # verity
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.eth.gphy.rc:root/init.eth.rc   # uses 'gphy'
-LOCAL_DEVICE_RCS                 += device/broadcom/fundy/rcs/init.block.rc:root/init.block.rc   # block devices
-LOCAL_DEVICE_RCS                 += device/broadcom/fundy/rcs/init.bcm.usb.rc:root/init.bcm.usb.rc   # uses 'configfs'
+LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.fundy.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.mmu.nx.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nx.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.verity.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.fs.rc     # verity
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.eth.gphy.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.eth.rc     # uses 'gphy'
+LOCAL_DEVICE_RCS                 += device/broadcom/fundy/rcs/init.block.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.block.rc       # block devices
+LOCAL_DEVICE_RCS                 += device/broadcom/fundy/rcs/init.bcm.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bcm.usb.rc   # uses 'configfs'
 export LOCAL_DEVICE_RCS
 
 LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:root/init.recovery.fundy.rc
@@ -24,8 +24,8 @@ LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/fundy/rcs/init.block.rc:root
 LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/fundy/rcs/init.recovery.usb.rc:root/init.recovery.usb.rc   # uses 'configfs'
 export LOCAL_DEVICE_RECOVERY_RCS
 
-LOCAL_DEVICE_FSTAB               := device/broadcom/fundy/fstab/fstab.verity.ab-update.early.bp3:root/fstab.bcm
-LOCAL_DEVICE_FSTAB               += device/broadcom/fundy/fstab/fstab.verity.ab-update.early.bp3:root/fstab.fundy
+LOCAL_DEVICE_FSTAB               := device/broadcom/fundy/fstab/fstab.verity.ab-update.early.bp3:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.bcm
+LOCAL_DEVICE_FSTAB               += device/broadcom/fundy/fstab/fstab.verity.ab-update.early.bp3:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.fundy
 export LOCAL_DEVICE_FSTAB
 
 LOCAL_DEVICE_RECOVERY_FSTAB      := device/broadcom/common/recovery/fstab.ab-update/recovery.fstab
@@ -109,5 +109,27 @@ PRODUCT_BRAND                    := bcm
 PRODUCT_DEVICE                   := fundy
 
 # additional setup per device.
-PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=fundy
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.hardware=fundy \
+   \
+   ro.opengles.version=196609 \
+   debug.hwui.render_dirty_regions=false \
+   ro.nx.mma=1 \
+   \
+   ro.nx.heap.video_secure=80m \
+   ro.nx.heap.main=96m \
+   ro.nx.heap.drv_managed=0m \
+   ro.nx.heap.grow=2m \
+   ro.nx.heap.shrink=2m \
+   ro.nx.heap.gfx=64m \
+   ro.nx.capable.dtu=1 \
+   \
+   ro.nx.capable.cb=1 \
+   ro.nx.capable.bg=1 \
+   ro.sf.lcd_density=320 \
+   \
+   ro.nx.eth.irq_mode_mask=f:c \
+   \
+   ro.com.google.clientidbase=android-acme
+
 TARGET_BOOTLOADER_BOARD_NAME  := fundy
