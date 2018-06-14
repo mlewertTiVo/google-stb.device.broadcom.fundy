@@ -13,6 +13,12 @@ export LOCAL_DEVICE_PROPERTIES_LEGACY := n
 # enable user mode 32bit with kernel mode 64bit compatible mode.
 export LOCAL_ARM_AARCH64_COMPAT_32_BIT := y
 
+# binary distribution
+export BCM_DIST_FORCED_BINDIST   := y
+export BCM_BINDIST_BL_ROOT       := vendor/broadcom/prebuilts/bootloaders/fundy
+export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/prebuilts/nximg/4.9/fundy
+export BCM_BINDIST_KNL_ROOT      := device/broadcom/fundy-kernel/4.9
+
 # compile the rc's for the device.
 LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.fundy.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.mmu.nx.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nx.rc
