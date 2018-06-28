@@ -87,8 +87,8 @@ export BOLT_IMG_TO_USE_OVERRIDE_2ND := bolt-b0.bin
 export HW_GPU_VULKAN_SUPPORT     := y
 
 # kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=240m@1808m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=520m@1288m brcm_cma=256m@3770m
+LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=235m@1812m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=520m@1288m brcm_cma=256m@12288m
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
@@ -131,15 +131,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.drv_managed=0m \
    ro.nx.heap.gfx=64m \
    ro.nx.capable.dtu=1 \
-   ro.nx.dtu.pbuf0.addr=0x100000000 \
+   ro.nx.dtu.pbuf0.addr=0x80000000 \
    ro.nx.dtu.pbuf0.size=0x28400000 \
-   ro.nx.dtu.pbuf1.addr=0x300000000 \
+   ro.nx.dtu.pbuf1.addr=0x340000000 \
    ro.nx.dtu.pbuf1.size=0x28400000 \
-   ro.nx.dtu.spbuf0.addr=0x140000000 \
+   ro.nx.dtu.spbuf0.addr=0xA8400000 \
    ro.nx.dtu.spbuf0.size=0x28400000 \
-   ro.nx.dtu.spbuf1.addr=0x328400000 \
+   ro.nx.dtu.spbuf1.addr=0x368400000 \
    ro.nx.dtu.spbuf1.size=0x28400000 \
-   ro.nx.dtu.user.addr=0x128400000 \
+   ro.nx.dtu.user.addr=0xD0800000 \
    ro.nx.dtu.user.size=0x17C00000 \
    \
    ro.nx.capable.cb=1 \
