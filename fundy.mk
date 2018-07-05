@@ -57,6 +57,7 @@ ifeq (${LOCAL_ARM_AARCH64_COMPAT_32_BIT},y)
 export LOCAL_DEVICE_BOOT         := 67108864   # 64M
 endif
 export LOCAL_DEVICE_SEPOLICY_BLOCK
+export LOCAL_DEVICE_AON_GPIO     := device/broadcom/fundy/aon_gpio.cfg:$(TARGET_COPY_OUT_VENDOR)/power/aon_gpio.cfg
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
 export LOCAL_DEVICE_USERDATA     := 4294967296  # 4GB.
 export LOCAL_DEVICE_USERDATA_FS  := f2fs
@@ -147,6 +148,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.sf.lcd_density=320 \
    \
    ro.nx.eth.irq_mode_mask=f:c \
+   ro.nx.pm.wol.en=0 \
    \
    ro.com.google.clientidbase=android-acme
 
