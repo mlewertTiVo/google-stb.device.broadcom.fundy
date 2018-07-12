@@ -132,16 +132,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.drv_managed=0m \
    ro.nx.heap.gfx=64m \
    ro.nx.capable.dtu=1 \
-   ro.nx.dtu.pbuf0.addr=0x80000000 \
-   ro.nx.dtu.pbuf0.size=0x28400000 \
-   ro.nx.dtu.pbuf1.addr=0x340000000 \
-   ro.nx.dtu.pbuf1.size=0x28400000 \
-   ro.nx.dtu.spbuf0.addr=0xA8400000 \
-   ro.nx.dtu.spbuf0.size=0x28400000 \
-   ro.nx.dtu.spbuf1.addr=0x368400000 \
-   ro.nx.dtu.spbuf1.size=0x28400000 \
-   ro.nx.dtu.user.addr=0xD0800000 \
-   ro.nx.dtu.user.size=0x17C00000 \
    \
    ro.nx.capable.cb=1 \
    ro.nx.capable.bg=1 \
@@ -151,5 +141,35 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.pm.wol.en=0 \
    \
    ro.com.google.clientidbase=android-acme
+
+# facilitate validation of 3GB layout devices.
+DEVICE_MEM_LAYOUT_3GB := n
+ifneq ($(DEVICE_MEM_LAYOUT_3GB),y)
+# 2gb (default) - dtu layout.
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.dtu.pbuf0.addr=0x80000000 \
+   ro.nx.dtu.pbuf0.size=0x28400000 \
+   ro.nx.dtu.pbuf1.addr=0x340000000 \
+   ro.nx.dtu.pbuf1.size=0x28400000 \
+   ro.nx.dtu.spbuf0.addr=0xA8400000 \
+   ro.nx.dtu.spbuf0.size=0x28400000 \
+   ro.nx.dtu.spbuf1.addr=0x368400000 \
+   ro.nx.dtu.spbuf1.size=0x28400000 \
+   ro.nx.dtu.user.addr=0xD0800000 \
+   ro.nx.dtu.user.size=0x17C00000
+else
+# 3gb - dtu layout.
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.dtu.pbuf0.addr=0xC0000000 \
+   ro.nx.dtu.pbuf0.size=0x28400000 \
+   ro.nx.dtu.pbuf1.addr=0x340000000 \
+   ro.nx.dtu.pbuf1.size=0x28400000 \
+   ro.nx.dtu.spbuf0.addr=0x100000000 \
+   ro.nx.dtu.spbuf0.size=0x28400000 \
+   ro.nx.dtu.spbuf1.addr=0x380000000 \
+   ro.nx.dtu.spbuf1.size=0x28400000 \
+   ro.nx.dtu.user.addr=0x128400000 \
+   ro.nx.dtu.user.size=0x17C00000
+endif
 
 TARGET_BOOTLOADER_BOARD_NAME  := fundy
