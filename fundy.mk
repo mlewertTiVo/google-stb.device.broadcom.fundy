@@ -111,6 +111,7 @@ export LOCAL_DEVICE_PAK_BINARY   := pak.7278.zd.bin
 export SAGE_BL_BINARY_PATH       := vendor/broadcom/sage/7278B0/dev
 export SAGE_BL_BINARY_PATH2      := vendor/broadcom/sage/7278B0
 export ANDROID_SUPPORTS_RPMB     := n
+export ANDROID_SUPPORTS_KEYMASTER := n
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
