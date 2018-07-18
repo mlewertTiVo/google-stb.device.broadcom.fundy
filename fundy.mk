@@ -105,7 +105,7 @@ export BOLT_IMG_SWAP_BFW            := device/broadcom/fundy/blb/zb/bfw-2.1.3-zb
 export BOLT_IMG_SWAP_RD             := device/broadcom/fundy/blb/zb/rd-zb.bin
 
 # TODO: fix up the zd|zb use case.
-export LOCAL_DEVICE_PAK_BINARY   := pak.7278.zd.bin
+export LOCAL_DEVICE_PAK_BINARY_DEV  := pak.7278.zd.bin
 
 # get sage bin's from 7278B0.
 export SAGE_BL_BINARY_PATH       := vendor/broadcom/sage/7278B0/dev
