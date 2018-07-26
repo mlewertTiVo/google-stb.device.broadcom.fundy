@@ -63,7 +63,6 @@ export LOCAL_DEVICE_USERDATA     := 4294967296  # 4GB.
 export LOCAL_DEVICE_USERDATA_FS  := f2fs
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.o.f2fs.conf
 export LOCAL_DEVICE_GPT_O_LAYOUT := y
-export HW_ENCODER_SUPPORT        := n
 export ANDROID_ENABLE_BT         := usb
 export BT_RFKILL_SUPPORT         := y
 export LOCAL_DEVICE_BT_CONFIG    := device/broadcom/fundy/bluetooth/vnd_fundy.txt
@@ -87,13 +86,6 @@ export BOLT_IMG_TO_USE_OVERRIDE_2ND := bolt-b0.bin
 # vulan support.
 export HW_GPU_VULKAN_SUPPORT     := y
 
-# kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=235m@1812m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=520m@1288m brcm_cma=256m@12288m
-LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
-export LOCAL_DEVICE_KERNEL_CMDLINE
-
-export LOCAL_DEVICE_RTS_MODE       := 2
 export LOCAL_DEVICE_BGRCPKT_PLANES := 2
 export LOCAL_DEVICE_MKBOOTIMG_ARGS := --ramdisk_offset 0x42200000
 
@@ -111,6 +103,24 @@ export LOCAL_DEVICE_PAK_BINARY_DEV  := pak.7278.zd.bin
 export SAGE_BL_BINARY_PATH       := vendor/broadcom/sage/7278B0/dev
 export SAGE_BL_BINARY_PATH2      := vendor/broadcom/sage/7278B0
 
+# facilitate validation of 3GB layout devices.
+DEVICE_MEM_LAYOUT_3GB := n
+ifneq ($(DEVICE_MEM_LAYOUT_3GB),y)
+export LOCAL_DEVICE_RTS_MODE       := 2
+export HW_ENCODER_SUPPORT          := n
+# kernel command line.
+LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=235m@1812m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=520m@1288m brcm_cma=256m@12288m
+else
+export LOCAL_DEVICE_RTS_MODE       := 5
+export HW_ENCODER_SUPPORT          := y
+# kernel command line.
+LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=295m@2776m bmem=64m@13248m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=640m@1288m brcm_cma=200m@12288m
+endif
+LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
+export LOCAL_DEVICE_KERNEL_CMDLINE
+
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
 #$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
@@ -127,7 +137,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.mma=1 \
    \
    ro.nx.heap.video_secure=64m \
-   ro.nx.heap.main=72m \
    ro.nx.heap.drv_managed=0m \
    ro.nx.heap.gfx=64m \
    ro.nx.capable.dtu=1 \
@@ -141,11 +150,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.com.google.clientidbase=android-acme
 
-# facilitate validation of 3GB layout devices.
-DEVICE_MEM_LAYOUT_3GB := n
 ifneq ($(DEVICE_MEM_LAYOUT_3GB),y)
-# 2gb (default) - dtu layout.
+# 2gb (default) - dtu|memory layout.
 PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.heap.main=72m \
+   \
    ro.nx.dtu.pbuf0.addr=0x80000000 \
    ro.nx.dtu.pbuf0.size=0x28400000 \
    ro.nx.dtu.pbuf1.addr=0x340000000 \
@@ -157,8 +166,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.dtu.user.addr=0xD0800000 \
    ro.nx.dtu.user.size=0x17C00000
 else
-# 3gb - dtu layout.
+# 3gb - dtu|memory layout.
 PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.heap.main=120m \
+   ro.nx.enc.all=1
+   \
    ro.nx.dtu.pbuf0.addr=0xC0000000 \
    ro.nx.dtu.pbuf0.size=0x28400000 \
    ro.nx.dtu.pbuf1.addr=0x340000000 \
