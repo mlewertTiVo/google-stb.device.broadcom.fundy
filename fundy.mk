@@ -169,7 +169,7 @@ else
 # 3gb - dtu|memory layout.
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.main=120m \
-   ro.nx.enc.all=1
+   ro.nx.enc.all=1 \
    \
    ro.nx.dtu.pbuf0.addr=0xC0000000 \
    ro.nx.dtu.pbuf0.size=0x28400000 \
