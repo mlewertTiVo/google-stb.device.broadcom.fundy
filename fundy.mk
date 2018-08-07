@@ -73,6 +73,7 @@ export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_USE_VERITY   := y
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION := /dev/block/platform/rdb/84a0200.sdhci/by-name/system
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION := /dev/block/platform/rdb/84a0200.sdhci/by-name/vendor
+export LOCAL_DEVICE_HEALTH_2     := y
 
 # no legacy decoder (vp8, h263, mpeg4) in hardware t.1
 export HW_HVD_REVISION           := T
@@ -123,8 +124,7 @@ export LOCAL_DEVICE_KERNEL_CMDLINE
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
-#$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
-PRODUCT_SHIPPING_API_LEVEL       := 28
+$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
 PRODUCT_NAME                     := fundy
 PRODUCT_MODEL                    := fundy
 PRODUCT_BRAND                    := google
