@@ -42,7 +42,7 @@ LOCAL_DEVICE_RECOVERY_FSTAB      := device/broadcom/common/recovery/fstab.ab-upd
 export LOCAL_DEVICE_RECOVERY_FSTAB
 
 # compile the media codecs for the device.
-LOCAL_DEVICE_MEDIA               := device/broadcom/fundy/media_codecs_no_legacy_enc_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_no_legacy_enc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
 LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 LOCAL_DEVICE_MEDIA               += device/broadcom/fundy/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
 export LOCAL_DEVICE_MEDIA
@@ -57,12 +57,12 @@ ifeq (${LOCAL_ARM_AARCH64_COMPAT_32_BIT},y)
 export LOCAL_DEVICE_BOOT         := 67108864   # 64M
 endif
 export LOCAL_DEVICE_SEPOLICY_BLOCK
+export LOCAL_DEVICE_AON_GPIO     := device/broadcom/fundy/aon_gpio.cfg:$(TARGET_COPY_OUT_VENDOR)/power/aon_gpio.cfg
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
 export LOCAL_DEVICE_USERDATA     := 4294967296  # 4GB.
 export LOCAL_DEVICE_USERDATA_FS  := f2fs
-export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.o.conf
+export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.o.f2fs.conf
 export LOCAL_DEVICE_GPT_O_LAYOUT := y
-export HW_ENCODER_SUPPORT        := n
 export ANDROID_ENABLE_BT         := usb
 export BT_RFKILL_SUPPORT         := y
 export LOCAL_DEVICE_BT_CONFIG    := device/broadcom/fundy/bluetooth/vnd_fundy.txt
@@ -73,6 +73,7 @@ export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_USE_VERITY   := y
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION := /dev/block/platform/rdb/84a0200.sdhci/by-name/system
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION := /dev/block/platform/rdb/84a0200.sdhci/by-name/vendor
+export LOCAL_DEVICE_HEALTH_2     := y
 
 # no legacy decoder (vp8, h263, mpeg4) in hardware t.1
 export HW_HVD_REVISION           := T
@@ -86,35 +87,44 @@ export BOLT_IMG_TO_USE_OVERRIDE_2ND := bolt-b0.bin
 # vulan support.
 export HW_GPU_VULKAN_SUPPORT     := y
 
-# kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=235m@1812m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=520m@1288m brcm_cma=256m@12288m
-LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
-export LOCAL_DEVICE_KERNEL_CMDLINE
-
-export LOCAL_DEVICE_RTS_MODE       := 2
 export LOCAL_DEVICE_BGRCPKT_PLANES := 2
 export LOCAL_DEVICE_MKBOOTIMG_ARGS := --ramdisk_offset 0x42200000
 
 # bootloader firmware manipulation.
-export LOCAL_DEVICE_SAGE_DEV_N_PROD := y
+export LOCAL_DEVICE_SAGE_DEV_N_PROD ?= y
 export BOLT_ZEUS_VER                := zeus51
 export BOLT_IMG_SWAP_BBL            := device/broadcom/fundy/blb/zb/bbl-2.1.1-zb.bin
 export BOLT_IMG_SWAP_BFW            := device/broadcom/fundy/blb/zb/bfw-2.1.3-zb.bin
 export BOLT_IMG_SWAP_RD             := device/broadcom/fundy/blb/zb/rd-zb.bin
 
 # TODO: fix up the zd|zb use case.
-export LOCAL_DEVICE_PAK_BINARY   := pak.7278.zd.bin
+export LOCAL_DEVICE_PAK_BINARY_DEV  := pak.7278.zd.bin
 
 # get sage bin's from 7278B0.
 export SAGE_BL_BINARY_PATH       := vendor/broadcom/sage/7278B0/dev
 export SAGE_BL_BINARY_PATH2      := vendor/broadcom/sage/7278B0
-export ANDROID_SUPPORTS_RPMB     := n
+
+# facilitate validation of 3GB layout devices.
+DEVICE_MEM_LAYOUT_3GB := n
+ifneq ($(DEVICE_MEM_LAYOUT_3GB),y)
+export LOCAL_DEVICE_RTS_MODE       := 2
+export HW_ENCODER_SUPPORT          := n
+# kernel command line.
+LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=235m@1812m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=520m@1288m brcm_cma=256m@12288m
+else
+export LOCAL_DEVICE_RTS_MODE       := 5
+export HW_ENCODER_SUPPORT          := y
+# kernel command line.
+LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=295m@2776m bmem=64m@13248m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=640m@1288m brcm_cma=200m@12288m
+endif
+LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
+export LOCAL_DEVICE_KERNEL_CMDLINE
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
-#$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
-PRODUCT_SHIPPING_API_LEVEL       := 28
+$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
 PRODUCT_NAME                     := fundy
 PRODUCT_MODEL                    := fundy
 PRODUCT_BRAND                    := google
@@ -127,10 +137,24 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.mma=1 \
    \
    ro.nx.heap.video_secure=64m \
-   ro.nx.heap.main=72m \
    ro.nx.heap.drv_managed=0m \
    ro.nx.heap.gfx=64m \
    ro.nx.capable.dtu=1 \
+   \
+   ro.nx.capable.cb=1 \
+   ro.nx.capable.bg=1 \
+   ro.sf.lcd_density=320 \
+   \
+   ro.nx.eth.irq_mode_mask=f:c \
+   ro.nx.pm.wol.opts=fg \
+   \
+   ro.com.google.clientidbase=android-acme
+
+ifneq ($(DEVICE_MEM_LAYOUT_3GB),y)
+# 2gb (default) - dtu|memory layout.
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.heap.main=72m \
+   \
    ro.nx.dtu.pbuf0.addr=0x80000000 \
    ro.nx.dtu.pbuf0.size=0x28400000 \
    ro.nx.dtu.pbuf1.addr=0x340000000 \
@@ -140,14 +164,23 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.dtu.spbuf1.addr=0x368400000 \
    ro.nx.dtu.spbuf1.size=0x28400000 \
    ro.nx.dtu.user.addr=0xD0800000 \
-   ro.nx.dtu.user.size=0x17C00000 \
+   ro.nx.dtu.user.size=0x17C00000
+else
+# 3gb - dtu|memory layout.
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.heap.main=120m \
+   ro.nx.enc.all=1 \
    \
-   ro.nx.capable.cb=1 \
-   ro.nx.capable.bg=1 \
-   ro.sf.lcd_density=320 \
-   \
-   ro.nx.eth.irq_mode_mask=f:c \
-   \
-   ro.com.google.clientidbase=android-acme
+   ro.nx.dtu.pbuf0.addr=0xC0000000 \
+   ro.nx.dtu.pbuf0.size=0x28400000 \
+   ro.nx.dtu.pbuf1.addr=0x340000000 \
+   ro.nx.dtu.pbuf1.size=0x28400000 \
+   ro.nx.dtu.spbuf0.addr=0x100000000 \
+   ro.nx.dtu.spbuf0.size=0x28400000 \
+   ro.nx.dtu.spbuf1.addr=0x380000000 \
+   ro.nx.dtu.spbuf1.size=0x28400000 \
+   ro.nx.dtu.user.addr=0x128400000 \
+   ro.nx.dtu.user.size=0x17C00000
+endif
 
 TARGET_BOOTLOADER_BOARD_NAME  := fundy
