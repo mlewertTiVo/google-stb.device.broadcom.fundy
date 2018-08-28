@@ -146,7 +146,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.sf.lcd_density=320 \
    \
    ro.nx.eth.irq_mode_mask=f:c \
-   ro.nx.pm.wol.opts=fg \
+   ro.nx.pm.wol.opts=fs \
    \
    ro.com.google.clientidbase=android-acme
 
