@@ -73,7 +73,6 @@ export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_USE_VERITY   := y
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION := /dev/block/platform/rdb/84a0200.sdhci/by-name/system
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION := /dev/block/platform/rdb/84a0200.sdhci/by-name/vendor
-export LOCAL_DEVICE_HEALTH_2     := y
 
 # no legacy decoder (vp8, h263, mpeg4) in hardware t.1
 export HW_HVD_REVISION           := T
