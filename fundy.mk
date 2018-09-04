@@ -61,7 +61,7 @@ export LOCAL_DEVICE_AON_GPIO     := device/broadcom/fundy/aon_gpio.cfg:$(TARGET_
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
 export LOCAL_DEVICE_USERDATA     := 4294967296  # 4GB.
 export LOCAL_DEVICE_USERDATA_FS  := f2fs
-export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.o.f2fs.conf
+export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.p.conf
 export LOCAL_DEVICE_GPT_O_LAYOUT := y
 export ANDROID_ENABLE_BT         := usb
 export BT_RFKILL_SUPPORT         := y
@@ -87,7 +87,7 @@ export BOLT_IMG_TO_USE_OVERRIDE_2ND := bolt-b0.bin
 export HW_GPU_VULKAN_SUPPORT     := y
 
 export LOCAL_DEVICE_BGRCPKT_PLANES := 2
-export LOCAL_DEVICE_MKBOOTIMG_ARGS := --ramdisk_offset 0x42200000
+export LOCAL_DEVICE_MKBOOTIMG_ARGS := --ramdisk_offset 0x42200000 --header_version 1
 
 # bootloader firmware manipulation.
 export LOCAL_DEVICE_SAGE_DEV_N_PROD ?= y
@@ -120,6 +120,9 @@ LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=640m@1288m brcm_cma=200m@12288m
 endif
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
+
+export LOCAL_DTBO_SUPPORT      := y
+export LOCAL_DEVICE_DTBO_IMAGE := dtbo.img
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
