@@ -9,6 +9,7 @@ export LOCAL_PRODUCT_OUT         := fundy
 export LOCAL_DEVICE_FULL_TREBLE  := y
 export ANDROID_DEVICE_SUPPORTS_BP3 := y
 export LOCAL_DEVICE_PROPERTIES_LEGACY := n
+export BOLT_BOARD_VB             := BCM97278IPA
 
 # enable user mode 32bit with kernel mode 64bit compatible mode.
 export LOCAL_ARM_AARCH64_COMPAT_32_BIT := y
