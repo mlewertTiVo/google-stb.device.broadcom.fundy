@@ -119,6 +119,7 @@ export HW_ENCODER_SUPPORT          := y
 LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=295m@2776m bmem=64m@13248m
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=640m@1288m brcm_cma=200m@12288m
 endif
+LOCAL_DEVICE_KERNEL_CMDLINE      += ignore_cma=1
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
