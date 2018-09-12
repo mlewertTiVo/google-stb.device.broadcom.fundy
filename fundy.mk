@@ -123,7 +123,7 @@ LOCAL_DEVICE_KERNEL_CMDLINE      += ignore_cma=1
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
-export LOCAL_DTBO_SUPPORT      := y
+export LOCAL_DTBO_SUPPORT      := n
 export LOCAL_DEVICE_DTBO_IMAGE := fundy/dtbo.img
 
 # baseline the common support.
