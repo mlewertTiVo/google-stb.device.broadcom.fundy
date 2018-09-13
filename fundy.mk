@@ -9,6 +9,7 @@ export LOCAL_PRODUCT_OUT         := fundy
 export LOCAL_DEVICE_FULL_TREBLE  := y
 export ANDROID_DEVICE_SUPPORTS_BP3 := y
 export LOCAL_DEVICE_PROPERTIES_LEGACY := n
+export BOLT_BOARD_VB             := BCM97278IPA
 
 # enable user mode 32bit with kernel mode 64bit compatible mode.
 export LOCAL_ARM_AARCH64_COMPAT_32_BIT := y
@@ -61,7 +62,7 @@ export LOCAL_DEVICE_AON_GPIO     := device/broadcom/fundy/aon_gpio.cfg:$(TARGET_
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
 export LOCAL_DEVICE_USERDATA     := 4294967296  # 4GB.
 export LOCAL_DEVICE_USERDATA_FS  := f2fs
-export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.o.f2fs.conf
+export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.p.conf
 export LOCAL_DEVICE_GPT_O_LAYOUT := y
 export ANDROID_ENABLE_BT         := usb
 export BT_RFKILL_SUPPORT         := y
@@ -73,7 +74,6 @@ export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_USE_VERITY   := y
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION := /dev/block/platform/rdb/84a0200.sdhci/by-name/system
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION := /dev/block/platform/rdb/84a0200.sdhci/by-name/vendor
-export LOCAL_DEVICE_HEALTH_2     := y
 
 # no legacy decoder (vp8, h263, mpeg4) in hardware t.1
 export HW_HVD_REVISION           := T
@@ -88,7 +88,7 @@ export BOLT_IMG_TO_USE_OVERRIDE_2ND := bolt-b0.bin
 export HW_GPU_VULKAN_SUPPORT     := y
 
 export LOCAL_DEVICE_BGRCPKT_PLANES := 2
-export LOCAL_DEVICE_MKBOOTIMG_ARGS := --ramdisk_offset 0x42200000
+export LOCAL_DEVICE_MKBOOTIMG_ARGS := --ramdisk_offset 0x42200000 --header_version 1
 
 # bootloader firmware manipulation.
 export LOCAL_DEVICE_SAGE_DEV_N_PROD ?= y
@@ -101,8 +101,8 @@ export BOLT_IMG_SWAP_RD             := device/broadcom/fundy/blb/zb/rd-zb.bin
 export LOCAL_DEVICE_PAK_BINARY_DEV  := pak.7278.zd.bin
 
 # get sage bin's from 7278B0.
-export SAGE_BL_BINARY_PATH       := vendor/broadcom/sage/7278B0/dev
-export SAGE_BL_BINARY_PATH2      := vendor/broadcom/sage/7278B0
+export SAGE_BL_BINARY_PATH       := vendor/broadcom/prebuilts/sage/7278B0/dev
+export SAGE_BL_BINARY_PATH2      := vendor/broadcom/prebuilts/sage/7278B0
 
 # facilitate validation of 3GB layout devices.
 DEVICE_MEM_LAYOUT_3GB := n
@@ -119,8 +119,12 @@ export HW_ENCODER_SUPPORT          := y
 LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=295m@2776m bmem=64m@13248m
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=640m@1288m brcm_cma=200m@12288m
 endif
+LOCAL_DEVICE_KERNEL_CMDLINE      += ignore_cma=1
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
+
+export LOCAL_DTBO_SUPPORT      := n
+export LOCAL_DEVICE_DTBO_IMAGE := fundy/dtbo.img
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
@@ -146,7 +150,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.sf.lcd_density=320 \
    \
    ro.nx.eth.irq_mode_mask=f:c \
-   ro.nx.pm.wol.opts=fg \
+   ro.nx.pm.wol.opts=fs \
    \
    ro.com.google.clientidbase=android-acme
 
