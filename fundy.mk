@@ -72,8 +72,8 @@ export V3D_VARIANT               := vc5
 export LOCAL_DEVICE_REFERENCE_BUILD := device/broadcom/fundy/reference_build.mk
 export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_USE_VERITY   := y
-export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION := /dev/block/platform/rdb/84a0200.sdhci/by-name/system
-export LOCAL_DEVICE_VENDOR_VERITY_PARTITION := /dev/block/platform/rdb/84a0200.sdhci/by-name/vendor
+export LOCAL_DEVICE_KMCERT_DEFAULT_DEV  := device/broadcom/common/kmgk/km.zx.bcm.generic.bin
+export LOCAL_DEVICE_KMCERT_DEFAULT_PROD := device/broadcom/common/kmgk/km.zx.bcm.generic.bin
 
 # no legacy decoder (vp8, h263, mpeg4) in hardware t.1
 export HW_HVD_REVISION           := T
@@ -123,8 +123,8 @@ LOCAL_DEVICE_KERNEL_CMDLINE      += ignore_cma=1
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
-export LOCAL_DTBO_SUPPORT      := n
-export LOCAL_DEVICE_DTBO_IMAGE := fundy/dtbo.img
+export LOCAL_DTBO_SUPPORT      := y
+export LOCAL_DEVICE_DTBO_IMAGE := fundy-kernel/4.9/dtbo.img
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
