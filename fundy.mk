@@ -1,11 +1,13 @@
 # mandatory device configuration.
+ifndef LOCAL_PRODUCT_OUT
+export LOCAL_PRODUCT_OUT         := fundy
+endif
 export LOCAL_ARM_AARCH64         := y
 export LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE := y
 export NEXUS_PLATFORM            := 97278
 export BCHP_VER                  := B1
 export BCHP_VER_BOLT             := b0
 export PLATFORM                  := 97278
-export LOCAL_PRODUCT_OUT         := fundy
 export LOCAL_DEVICE_FULL_TREBLE  := y
 export ANDROID_DEVICE_SUPPORTS_BP3 := y
 export LOCAL_DEVICE_PROPERTIES_LEGACY := n
