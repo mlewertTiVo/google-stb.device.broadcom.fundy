@@ -139,7 +139,6 @@ PRODUCT_DEVICE                   := fundy
 # additional setup per device.
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.opengles.version=196609 \
-   debug.hwui.render_dirty_regions=false \
    ro.nx.mma=1 \
    \
    ro.nx.heap.video_secure=64m \
