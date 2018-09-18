@@ -126,7 +126,11 @@ LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
 export LOCAL_DTBO_SUPPORT      := y
+ifneq ($(wildcard device/broadcom/fundy-kernel),)
 export LOCAL_DEVICE_DTBO_IMAGE := fundy-kernel/4.9/dtbo.img
+else
+export LOCAL_DEVICE_DTBO_IMAGE := fundy/dtbo.img
+endif
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
