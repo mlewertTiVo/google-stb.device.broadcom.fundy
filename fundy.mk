@@ -62,7 +62,6 @@ endif
 export LOCAL_DEVICE_SEPOLICY_BLOCK
 export LOCAL_DEVICE_AON_GPIO     := device/broadcom/fundy/aon_gpio.cfg:$(TARGET_COPY_OUT_VENDOR)/power/aon_gpio.cfg
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
-export LOCAL_DEVICE_USERDATA     := 4294967296  # 4GB.
 export LOCAL_DEVICE_USERDATA_FS  := f2fs
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.p.conf
 export LOCAL_DEVICE_GPT_O_LAYOUT := y
