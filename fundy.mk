@@ -109,7 +109,9 @@ export SAGE_BL_BINARY_PATH2      := vendor/broadcom/prebuilts/sage/7278B0
 DEVICE_MEM_LAYOUT_3GB := n
 ifneq ($(DEVICE_MEM_LAYOUT_3GB),y)
 export LOCAL_DEVICE_RTS_MODE       := 2
-export HW_ENCODER_SUPPORT          := n
+# no encoder, but must disable support explicitely in recovery mode.
+export HW_ENCODER_SUPPORT           := n
+export HW_ENCODER_RECOVERY_OVERRIDE := nxmini_with_encoder.cpp
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=235m@1812m
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=520m@1288m brcm_cma=256m@12288m
