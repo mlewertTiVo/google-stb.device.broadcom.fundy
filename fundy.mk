@@ -62,7 +62,6 @@ endif
 export LOCAL_DEVICE_SEPOLICY_BLOCK
 export LOCAL_DEVICE_AON_GPIO     := device/broadcom/fundy/aon_gpio.cfg:$(TARGET_COPY_OUT_VENDOR)/power/aon_gpio.cfg
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
-export LOCAL_DEVICE_USERDATA     := 4294967296  # 4GB.
 export LOCAL_DEVICE_USERDATA_FS  := f2fs
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.p.conf
 export LOCAL_DEVICE_GPT_O_LAYOUT := y
@@ -110,7 +109,9 @@ export SAGE_BL_BINARY_PATH2      := vendor/broadcom/prebuilts/sage/7278B0
 DEVICE_MEM_LAYOUT_3GB := n
 ifneq ($(DEVICE_MEM_LAYOUT_3GB),y)
 export LOCAL_DEVICE_RTS_MODE       := 2
-export HW_ENCODER_SUPPORT          := n
+# no encoder, but must disable support explicitely in recovery mode.
+export HW_ENCODER_SUPPORT           := n
+export HW_ENCODER_RECOVERY_OVERRIDE := nxmini_with_encoder.cpp
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=235m@1812m
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=520m@1288m brcm_cma=256m@12288m
@@ -121,12 +122,16 @@ export HW_ENCODER_SUPPORT          := y
 LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=295m@2776m bmem=64m@13248m
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=640m@1288m brcm_cma=200m@12288m
 endif
-LOCAL_DEVICE_KERNEL_CMDLINE      += ignore_cma=1
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcmv3d.ignore_cma=1
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
 export LOCAL_DTBO_SUPPORT      := y
+ifneq ($(wildcard device/broadcom/fundy-kernel),)
 export LOCAL_DEVICE_DTBO_IMAGE := fundy-kernel/4.9/dtbo.img
+else
+export LOCAL_DEVICE_DTBO_IMAGE := fundy/dtbo.img
+endif
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
@@ -139,7 +144,6 @@ PRODUCT_DEVICE                   := fundy
 # additional setup per device.
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.opengles.version=196609 \
-   debug.hwui.render_dirty_regions=false \
    ro.nx.mma=1 \
    \
    ro.nx.heap.video_secure=64m \
