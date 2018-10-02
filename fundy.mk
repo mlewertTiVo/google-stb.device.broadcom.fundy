@@ -8,7 +8,6 @@ export NEXUS_PLATFORM            := 97278
 export BCHP_VER                  := B1
 export BCHP_VER_BOLT             := b0
 export PLATFORM                  := 97278
-export LOCAL_DEVICE_FULL_TREBLE  := y
 export ANDROID_DEVICE_SUPPORTS_BP3 := y
 export LOCAL_DEVICE_PROPERTIES_LEGACY := n
 export BOLT_BOARD_VB             := BCM97278IPA
@@ -53,9 +52,7 @@ export LOCAL_DEVICE_MEDIA
 # optional device override/addition.
 export LOCAL_DEVICE_OVERLAY      := device/broadcom/fundy/overlay
 LOCAL_DEVICE_SEPOLICY_BLOCK      := device/broadcom/fundy/sepolicy/block
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 LOCAL_DEVICE_SEPOLICY_BLOCK      += device/broadcom/fundy/sepolicy/treble
-endif
 ifeq (${LOCAL_ARM_AARCH64_COMPAT_32_BIT},y)
 export LOCAL_DEVICE_BOOT         := 67108864   # 64M
 endif
