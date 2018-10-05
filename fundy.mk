@@ -92,7 +92,7 @@ export LOCAL_DEVICE_MKBOOTIMG_ARGS := --ramdisk_offset 0x42200000 --header_versi
 export LOCAL_DEVICE_SAGE_DEV_N_PROD ?= y
 export BOLT_ZEUS_VER                := zeus51
 export BOLT_IMG_SWAP_BBL            := device/broadcom/fundy/blb/zb/bbl-2.1.1-zb.bin
-export BOLT_IMG_SWAP_BFW            := device/broadcom/fundy/blb/zb/bfw-2.1.3-zb.bin
+export BOLT_IMG_SWAP_BFW            := device/broadcom/fundy/blb/zb/bfw-2.1.5-zb.bin
 export BOLT_IMG_SWAP_RD             := device/broadcom/fundy/blb/zb/rd-zb.bin
 
 # TODO: fix up the zd|zb use case.
