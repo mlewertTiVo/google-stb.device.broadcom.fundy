@@ -50,7 +50,7 @@ LOCAL_DEVICE_MEDIA               += device/broadcom/fundy/media_codecs_performan
 export LOCAL_DEVICE_MEDIA
 
 # optional device override/addition.
-export LOCAL_DEVICE_OVERLAY      := device/broadcom/fundy/overlay
+export LOCAL_DEVICE_RRO_OVERLAY  := device/broadcom/fundy/overlay/frameworks/base/core/res/res
 LOCAL_DEVICE_SEPOLICY_BLOCK      := device/broadcom/fundy/sepolicy/block
 LOCAL_DEVICE_SEPOLICY_BLOCK      += device/broadcom/fundy/sepolicy/treble
 ifeq (${LOCAL_ARM_AARCH64_COMPAT_32_BIT},y)
