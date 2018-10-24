@@ -98,10 +98,6 @@ export BOLT_IMG_SWAP_RD             := device/broadcom/fundy/blb/zb/rd-zb.bin
 # TODO: fix up the zd|zb use case.
 export LOCAL_DEVICE_PAK_BINARY_DEV  := pak.7278.zd.bin
 
-# get sage bin's from 7278B0.
-export SAGE_BL_BINARY_PATH       := vendor/broadcom/prebuilts/sage/7278B0/dev
-export SAGE_BL_BINARY_PATH2      := vendor/broadcom/prebuilts/sage/7278B0
-
 # facilitate validation of 3GB layout devices.
 DEVICE_MEM_LAYOUT_3GB := n
 ifneq ($(DEVICE_MEM_LAYOUT_3GB),y)
