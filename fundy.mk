@@ -152,7 +152,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.eth.irq_mode_mask=f:c \
    ro.nx.pm.wol.opts=fs \
    \
-   ro.com.google.clientidbase=android-acme
+   ro.com.google.clientidbase=android-acme \
+   \
+   ro.nx.trim.mp3=1
 
 ifneq ($(DEVICE_MEM_LAYOUT_3GB),y)
 # 2gb (default) - dtu|memory layout.
