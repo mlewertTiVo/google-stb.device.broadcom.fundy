@@ -142,6 +142,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.video_secure=64m \
    ro.nx.heap.drv_managed=0m \
    ro.nx.heap.gfx=64m \
+   ro.nx.heap.gfx2=0m \
    ro.nx.capable.dtu=1 \
    \
    ro.nx.capable.cb=1 \
