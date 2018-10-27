@@ -84,6 +84,7 @@ export BOLT_IMG_TO_USE_OVERRIDE     := bolt-b1.bin
 export BOLT_IMG_TO_USE_OVERRIDE_2ND := bolt-b0.bin
 # vulan support.
 export HW_GPU_VULKAN_SUPPORT     := y
+export HW_MP3_DECODER_SUPPORT    := n
 
 export LOCAL_DEVICE_BGRCPKT_PLANES := 2
 export LOCAL_DEVICE_MKBOOTIMG_ARGS := --ramdisk_offset 0x42200000 --header_version 1
