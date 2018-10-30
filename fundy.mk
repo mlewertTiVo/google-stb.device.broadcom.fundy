@@ -70,8 +70,6 @@ export V3D_VARIANT               := vc5
 export LOCAL_DEVICE_REFERENCE_BUILD := device/broadcom/fundy/reference_build.mk
 export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_USE_VERITY   := y
-export LOCAL_DEVICE_KMCERT_DEFAULT_DEV  := device/broadcom/common/kmgk/km.zx.bcm.generic.bin
-export LOCAL_DEVICE_KMCERT_DEFAULT_PROD := device/broadcom/common/kmgk/km.zx.bcm.generic.bin
 
 # no legacy decoder (vp8, h263, mpeg4) in hardware t.1
 export HW_HVD_REVISION           := T
