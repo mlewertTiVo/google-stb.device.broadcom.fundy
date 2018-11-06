@@ -44,7 +44,7 @@ LOCAL_DEVICE_RECOVERY_FSTAB      := device/broadcom/common/recovery/fstab.ab-upd
 export LOCAL_DEVICE_RECOVERY_FSTAB
 
 # compile the media codecs for the device.
-LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_no_legacy_enc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+LOCAL_DEVICE_MEDIA               := device/broadcom/fundy/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
 LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 LOCAL_DEVICE_MEDIA               += device/broadcom/fundy/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
 export LOCAL_DEVICE_MEDIA
@@ -70,8 +70,6 @@ export V3D_VARIANT               := vc5
 export LOCAL_DEVICE_REFERENCE_BUILD := device/broadcom/fundy/reference_build.mk
 export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_USE_VERITY   := y
-export LOCAL_DEVICE_KMCERT_DEFAULT_DEV  := device/broadcom/common/kmgk/km.zx.bcm.generic.bin
-export LOCAL_DEVICE_KMCERT_DEFAULT_PROD := device/broadcom/common/kmgk/km.zx.bcm.generic.bin
 
 # no legacy decoder (vp8, h263, mpeg4) in hardware t.1
 export HW_HVD_REVISION           := T
@@ -84,6 +82,7 @@ export BOLT_IMG_TO_USE_OVERRIDE     := bolt-b1.bin
 export BOLT_IMG_TO_USE_OVERRIDE_2ND := bolt-b0.bin
 # vulan support.
 export HW_GPU_VULKAN_SUPPORT     := y
+export HW_MP3_DECODER_SUPPORT    := n
 
 export LOCAL_DEVICE_BGRCPKT_PLANES := 2
 export LOCAL_DEVICE_MKBOOTIMG_ARGS := --ramdisk_offset 0x42200000 --header_version 1
@@ -97,10 +96,6 @@ export BOLT_IMG_SWAP_RD             := device/broadcom/fundy/blb/zb/rd-zb.bin
 
 # TODO: fix up the zd|zb use case.
 export LOCAL_DEVICE_PAK_BINARY_DEV  := pak.7278.zd.bin
-
-# get sage bin's from 7278B0.
-export SAGE_BL_BINARY_PATH       := vendor/broadcom/prebuilts/sage/7278B0/dev
-export SAGE_BL_BINARY_PATH2      := vendor/broadcom/prebuilts/sage/7278B0
 
 # facilitate validation of 3GB layout devices.
 DEVICE_MEM_LAYOUT_3GB := n
@@ -146,6 +141,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.video_secure=64m \
    ro.nx.heap.drv_managed=0m \
    ro.nx.heap.gfx=64m \
+   ro.nx.heap.gfx2=0m \
    ro.nx.capable.dtu=1 \
    \
    ro.nx.capable.cb=1 \
@@ -156,7 +152,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.eth.irq_mode_mask=f:c \
    ro.nx.pm.wol.opts=fs \
    \
-   ro.com.google.clientidbase=android-acme
+   ro.com.google.clientidbase=android-acme \
+   \
+   ro.nx.trim.mp3=1
 
 ifneq ($(DEVICE_MEM_LAYOUT_3GB),y)
 # 2gb (default) - dtu|memory layout.
