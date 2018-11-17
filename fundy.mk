@@ -152,7 +152,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.eth.irq_mode_mask=f:c \
    ro.nx.pm.wol.opts=fs \
    \
-   ro.com.google.clientidbase=android-acme \
+   ro.com.google.clientidbase=android-broadcom-tv \
    \
    ro.nx.trim.mp3=1
 
