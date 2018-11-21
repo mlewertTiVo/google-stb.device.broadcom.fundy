@@ -73,6 +73,8 @@ export LOCAL_DEVICE_USE_VERITY   := y
 
 # no legacy decoder (vp8, h263, mpeg4) in hardware t.1
 export HW_HVD_REVISION           := T
+# 4k alignment required for raaga buffers
+export HW_RAAGA_ALIGNMENT        := 4096
 # v3d mmu available.
 export HW_GPU_MMU_SUPPORT        := y
 # dtu enabled.
