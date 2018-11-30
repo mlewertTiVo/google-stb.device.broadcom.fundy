@@ -40,7 +40,7 @@ LOCAL_DEVICE_FSTAB               := device/broadcom/fundy/fstab/fstab.verity.ab-
 LOCAL_DEVICE_FSTAB               += device/broadcom/fundy/fstab/fstab.verity.ab-update.early.bp3:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.fundy
 export LOCAL_DEVICE_FSTAB
 
-LOCAL_DEVICE_RECOVERY_FSTAB      := device/broadcom/common/recovery/fstab.ab-update/recovery.fstab
+LOCAL_DEVICE_RECOVERY_FSTAB      := device/broadcom/common/recovery/fstab.ab-u.f2fs-data/recovery.fstab
 export LOCAL_DEVICE_RECOVERY_FSTAB
 
 # compile the media codecs for the device.
