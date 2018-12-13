@@ -107,13 +107,22 @@ export LOCAL_DEVICE_RTS_MODE       := 2
 export HW_ENCODER_SUPPORT           := n
 export HW_ENCODER_RECOVERY_OVERRIDE := nxmini_with_encoder.cpp
 # kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=235m@1812m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=520m@1288m brcm_cma=256m@12288m
+ifeq ($(ANDROID_ENABLE_DHD_SECDMA),y)
+LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=257m@1790m brcm_cma=520m@1268m
+else
+LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=235m@1812m brcm_cma=520m@1288m
+endif
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=256m@12288m
 else
 export LOCAL_DEVICE_RTS_MODE       := 5
 export HW_ENCODER_SUPPORT          := y
 # kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=295m@2776m bmem=64m@13248m
+ifeq ($(ANDROID_ENABLE_DHD_SECDMA),y)
+LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=315m@2756m
+else
+LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=295m@2776m
+endif
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=64m@13248m
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=640m@1288m brcm_cma=200m@12288m
 endif
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcmv3d.ignore_cma=1
@@ -160,9 +169,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 ifneq ($(DEVICE_MEM_LAYOUT_3GB),y)
 # 2gb (default) - dtu|memory layout.
+ifeq ($(ANDROID_ENABLE_DHD_SECDMA),y)
 PRODUCT_PROPERTY_OVERRIDES += \
-   ro.nx.heap.main=72m \
-   \
+   ro.nx.heap.main=92m
+else
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.heap.main=72m
+endif
+
+PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.dtu.pbuf0.addr=0x80000000 \
    ro.nx.dtu.pbuf0.size=0x28400000 \
    ro.nx.dtu.pbuf1.addr=0x340000000 \
@@ -175,8 +190,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.dtu.user.size=0x17C00000
 else
 # 3gb - dtu|memory layout.
+ifeq ($(ANDROID_ENABLE_DHD_SECDMA),y)
 PRODUCT_PROPERTY_OVERRIDES += \
-   ro.nx.heap.main=120m \
+   ro.nx.heap.main=140m
+else
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.heap.main=120m
+endif
+
+PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.enc.all=1 \
    \
    ro.nx.dtu.pbuf0.addr=0xC0000000 \
