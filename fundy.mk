@@ -122,7 +122,7 @@ LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=315m@2756m
 else
 LOCAL_DEVICE_KERNEL_CMDLINE      := bmem=295m@2776m
 endif
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=64m@13248m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=66m@13246m
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=640m@1288m brcm_cma=200m@12288m
 endif
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcmv3d.ignore_cma=1
@@ -152,7 +152,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.video_secure=64m \
    ro.nx.heap.drv_managed=0m \
    ro.nx.heap.gfx=64m \
-   ro.nx.heap.gfx2=0m \
    ro.nx.capable.dtu=1 \
    \
    ro.nx.capable.cb=1 \
@@ -178,6 +177,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.heap.gfx2=0m \
+   \
    ro.nx.dtu.pbuf0.addr=0x80000000 \
    ro.nx.dtu.pbuf0.size=0x28400000 \
    ro.nx.dtu.pbuf1.addr=0x340000000 \
