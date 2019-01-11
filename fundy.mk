@@ -211,7 +211,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.dtu.spbuf1.addr=0x380000000 \
    ro.nx.dtu.spbuf1.size=0x28400000 \
    ro.nx.dtu.user.addr=0x128400000 \
-   ro.nx.dtu.user.size=0x17C00000
+   ro.nx.dtu.user.size=0x17C00000 \
+   ro.nx.dtu.user.set=1
 endif
 
 TARGET_BOOTLOADER_BOARD_NAME  := fundy
