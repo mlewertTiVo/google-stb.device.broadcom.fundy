@@ -188,7 +188,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.dtu.spbuf1.addr=0x368400000 \
    ro.nx.dtu.spbuf1.size=0x28400000 \
    ro.nx.dtu.user.addr=0xD0800000 \
-   ro.nx.dtu.user.size=0x17C00000
+   ro.nx.dtu.user.size=0x17C00000 \
+   ro.nx.dtu.user.set=1
 else
 # 3gb - dtu|memory layout.
 ifeq ($(ANDROID_ENABLE_DHD_SECDMA),y)
@@ -211,7 +212,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.dtu.spbuf1.addr=0x380000000 \
    ro.nx.dtu.spbuf1.size=0x28400000 \
    ro.nx.dtu.user.addr=0x128400000 \
-   ro.nx.dtu.user.size=0x17C00000
+   ro.nx.dtu.user.size=0x17C00000 \
+   ro.nx.dtu.user.set=1
 endif
 
 TARGET_BOOTLOADER_BOARD_NAME  := fundy
