@@ -84,7 +84,6 @@ export BOLT_IMG_TO_USE_OVERRIDE     := bolt-b1.bin
 export BOLT_IMG_TO_USE_OVERRIDE_2ND := bolt-b0.bin
 # vulan support.
 export HW_GPU_VULKAN_SUPPORT     := y
-export HW_MP3_DECODER_SUPPORT    := n
 
 export LOCAL_DEVICE_BGRCPKT_PLANES := 2
 export LOCAL_DEVICE_MKBOOTIMG_ARGS := --ramdisk_offset 0x42200000 --header_version 1
@@ -161,9 +160,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.eth.irq_mode_mask=f:c \
    ro.nx.pm.wol.opts=fs \
    \
-   ro.com.google.clientidbase=android-broadcom-tv \
-   \
-   ro.nx.trim.mp3=1
+   ro.com.google.clientidbase=android-broadcom-tv
 
 ifneq ($(DEVICE_MEM_LAYOUT_3GB),y)
 # 2gb (default) - dtu|memory layout.
