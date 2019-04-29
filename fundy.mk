@@ -172,8 +172,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.main=92m
 else
 PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.heap.main=72m
+endif
+
+PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.gfx2=0m \
-   ro.nx.heap.main=72m \
    ro.nx.heap.drv_managed=0m \
    \
    ro.nx.dtu.pbuf0.addr=0x80000000 \
