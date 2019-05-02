@@ -2,6 +2,8 @@
 ifndef LOCAL_PRODUCT_OUT
 export LOCAL_PRODUCT_OUT         := fundy
 endif
+
+export LOCAL_CFG_PROFILE         ?= default
 export LOCAL_ARM_AARCH64         := y
 export LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE := y
 export NEXUS_PLATFORM            := 97278
@@ -213,4 +215,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.dtu.user.set=1
 endif
 
-TARGET_BOOTLOADER_BOARD_NAME  := fundy
+# last but not least, include device flavor profile.
+include device/broadcom/fundy/profiles/${LOCAL_CFG_PROFILE}.mk
+
+TARGET_BOOTLOADER_BOARD_NAME  ?= fundy
